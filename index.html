@@ -737,13 +737,30 @@
           <div id="cnaePrincipalSelecionado"></div>
         </div>
 
-        <h3>CNAEs Secundários (opcional)</h3>
-        <button class="btn btn-secondary" onclick="adicionarCNAESecundario()">
-          + Adicionar CNAE Secundário
-        </button>
-        <div id="cnaesSecundarios"></div>
+        
+<h3>CNAEs Secundários (opcional)</h3>
+<div class="form-group">
+  <label for="buscaCnaePrincipal">CNAE Principal *</label>
+  <input type="text" id="buscaCnaePrincipal" class="form-control" placeholder="Digite o CNAE principal">
+</div>
+<div id="cnaes-secundarios">
+  <div class="form-group">
+    <label>CNAE Secundário</label>
+    <input type="text" name="cnae-secundario[]" class="form-control" placeholder="Digite um CNAE secundário">
+  </div>
+</div>
+<button type="button" class="btn btn-secondary" onclick="adicionarCNAE()">+ Adicionar CNAE Secundário</button>
+<script>
+function adicionarCNAE() {
+  const container = document.getElementById('cnaes-secundarios');
+  const div = document.createElement('div');
+  div.className = 'form-group';
+  div.innerHTML = '<label>CNAE Secundário</label><input type="text" name="cnae-secundario[]" class="form-control" placeholder="Digite um CNAE secundário">';
+  container.appendChild(div);
+}
+</script>
 
-        <div class="btn-group">
+<div class="btn-group">
           <button class="btn btn-secondary" onclick="showTab('empresa')">
             ← Voltar
           </button>
