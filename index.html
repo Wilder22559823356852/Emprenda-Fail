@@ -1,17 +1,28 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-<meta content="Sistema completo para planejamento e abertura de empresas no Brasil" name="description"/>
-<meta content="Empreenda Fácil" name="author"/>
-<title>Empreenda Fácil - Sistema de Abertura de Empresas</title>
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" type="text/javascript"></script>
-<style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Sistema completo para planejamento e abertura de empresas no Brasil"
+    />
+    <meta name="author" content="Empreenda Fácil" />
+    <title>Empreenda Fácil - Sistema de Abertura de Empresas</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- EmailJS -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+
+    <style>
       /* Reset e Base */
       * {
         margin: 0;
@@ -554,278 +565,358 @@
         }
       }
     </style>
-</head>
-<body>
-<div class="main-container">
-<!-- Header -->
-<header class="header">
-<h1>🚀 Empreenda Fácil</h1>
-<p>Sistema Completo para Abertura de Empresas</p>
-</header>
-<!-- Navegação por Abas -->
-<nav class="tab-nav" role="tablist">
-<button class="tab-btn active" onclick="showTab('empresa')" role="tab">
+  </head>
+  <body>
+    <div class="main-container">
+      <!-- Header -->
+      <header class="header">
+        <h1>🚀 Empreenda Fácil</h1>
+        <p>Sistema Completo para Abertura de Empresas</p>
+      </header>
+
+      <!-- Navegação por Abas -->
+      <nav class="tab-nav" role="tablist">
+        <button class="tab-btn active" onclick="showTab('empresa')" role="tab">
           📝 Empresa
         </button>
-<button class="tab-btn" onclick="showTab('cnae')" role="tab">
+        <button class="tab-btn" onclick="showTab('cnae')" role="tab">
           📋 CNAEs
         </button>
-<button class="tab-btn" onclick="showTab('funcionarios')" role="tab">
+        <button class="tab-btn" onclick="showTab('funcionarios')" role="tab">
           👥 Funcionários
         </button>
-<button class="tab-btn" onclick="showTab('custos')" role="tab">
+        <button class="tab-btn" onclick="showTab('custos')" role="tab">
           💰 Custos
         </button>
-<button class="tab-btn" onclick="showTab('resultado')" role="tab">
+        <button class="tab-btn" onclick="showTab('resultado')" role="tab">
           📊 Resultado
         </button>
-<button class="tab-btn" onclick="showTab('relatorio')" role="tab">
+        <button class="tab-btn" onclick="showTab('relatorio')" role="tab">
           📄 Relatório
         </button>
-</nav>
-<!-- Tab 1: Dados da Empresa -->
-<div class="tab-content active" id="empresa">
-<h2>Dados da Empresa</h2>
-<div class="form-group">
-<label for="nomeEmpresa">Nome da Empresa *</label>
-<input class="form-control" id="nomeEmpresa" placeholder="Digite o nome da sua empresa" type="text"/>
-</div>
-<div class="grid grid-2">
-<div class="form-group">
-<label for="emailContato">Email para Contato *</label>
-<input class="form-control" id="emailContato" placeholder="seu@email.com" type="email"/>
-</div>
-<div class="form-group">
-<label for="telefone">Telefone *</label>
-<input class="form-control" id="telefone" placeholder="(11) 99999-9999" type="tel"/>
-</div>
-</div>
-<div class="grid grid-3">
-<div class="form-group">
-<label for="capitalInicial">Capital Inicial (R$) *</label>
-<input class="form-control" id="capitalInicial" placeholder="" type="number" value=""/>
-</div>
-<div class="form-group">
-<label for="cidade">Cidade *</label>
-<select class="form-control" id="cidade" onchange="calcularCustos()">
-<option value="">Selecione...</option>
-<option value="sp">São Paulo - SP</option>
-<option value="rj">Rio de Janeiro - RJ</option>
-<option value="mg">Belo Horizonte - MG</option>
-<option value="df">Brasília - DF</option>
-<option value="pr">Curitiba - PR</option>
-<option value="rs">Porto Alegre - RS</option>
-<option value="ba">Salvador - BA</option>
-<option value="ce">Fortaleza - CE</option>
-<option value="pe">Recife - PE</option>
-<option value="am">Manaus - AM</option>
-<option value="go">Goiânia - GO</option>
-<option value="sc">Florianópolis - SC</option>
-</select>
-</div>
-<div class="form-group">
-<label for="numeroSocios">Número de Sócios *</label>
-<input class="form-control" id="numeroSocios" min="1" type="number" value="1"/>
-</div>
-</div>
-<div class="form-group">
-<label for="ramoAtividade">Ramo de Atividade *</label>
-<select class="form-control" id="ramoAtividade" onchange="sugerirCNAEs()">
-<option value="">Selecione o ramo...</option>
-<option value="alimentacao">Alimentação e Bebidas</option>
-<option value="comercio">Comércio Varejista</option>
-<option value="servicos">Prestação de Serviços</option>
-<option value="tecnologia">Tecnologia e Informática</option>
-<option value="saude">Saúde e Bem-estar</option>
-<option value="educacao">Educação e Treinamento</option>
-<option value="industria">Indústria e Manufatura</option>
-<option value="construcao">Construção Civil</option>
-<option value="transporte">Transporte e Logística</option>
-<option value="consultoria">Consultoria e Assessoria</option>
-<option value="imobiliario">Mercado Imobiliário</option>
-<option value="turismo">Turismo e Hotelaria</option>
-<option value="moda">Moda e Vestuário</option>
-<option value="beleza">Beleza e Estética</option>
-<option value="pet">Pet e Veterinária</option>
-<option value="automotivo">Serviços Automotivos</option>
-</select>
-</div>
-<div class="btn-group">
-<button class="btn btn-primary" onclick="showTab('cnae')">
+      </nav>
+
+      <!-- Tab 1: Dados da Empresa -->
+      <div id="empresa" class="tab-content active">
+        <h2>Dados da Empresa</h2>
+
+        <div class="form-group">
+          <label for="nomeEmpresa">Nome da Empresa *</label>
+          <input
+            type="text"
+            id="nomeEmpresa"
+            class="form-control"
+            placeholder="Digite o nome da sua empresa"
+          />
+        </div>
+
+        <div class="grid grid-2">
+          <div class="form-group">
+            <label for="emailContato">Email para Contato *</label>
+            <input
+              type="email"
+              id="emailContato"
+              class="form-control"
+              placeholder="seu@email.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="telefone">Telefone *</label>
+            <input
+              type="tel"
+              id="telefone"
+              class="form-control"
+              placeholder="(11) 99999-9999"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="form-group">
+            <label for="capitalInicial">Capital Inicial (R$) *</label>
+            <input
+              type="number"
+              id="capitalInicial"
+              class="form-control"
+              placeholder="50000"
+              value="50000"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="cidade">Cidade *</label>
+            <select
+              id="cidade"
+              class="form-control"
+              onchange="calcularCustos()"
+            >
+              <option value="">Selecione...</option>
+              <option value="sp">São Paulo - SP</option>
+              <option value="rj">Rio de Janeiro - RJ</option>
+              <option value="mg">Belo Horizonte - MG</option>
+              <option value="df">Brasília - DF</option>
+              <option value="pr">Curitiba - PR</option>
+              <option value="rs">Porto Alegre - RS</option>
+              <option value="ba">Salvador - BA</option>
+              <option value="ce">Fortaleza - CE</option>
+              <option value="pe">Recife - PE</option>
+              <option value="am">Manaus - AM</option>
+              <option value="go">Goiânia - GO</option>
+              <option value="sc">Florianópolis - SC</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="numeroSocios">Número de Sócios *</label>
+            <input
+              type="number"
+              id="numeroSocios"
+              class="form-control"
+              value="1"
+              min="1"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ramoAtividade">Ramo de Atividade *</label>
+          <select
+            id="ramoAtividade"
+            class="form-control"
+            onchange="sugerirCNAEs()"
+          >
+            <option value="">Selecione o ramo...</option>
+            <option value="alimentacao">Alimentação e Bebidas</option>
+            <option value="comercio">Comércio Varejista</option>
+            <option value="servicos">Prestação de Serviços</option>
+            <option value="tecnologia">Tecnologia e Informática</option>
+            <option value="saude">Saúde e Bem-estar</option>
+            <option value="educacao">Educação e Treinamento</option>
+            <option value="industria">Indústria e Manufatura</option>
+            <option value="construcao">Construção Civil</option>
+            <option value="transporte">Transporte e Logística</option>
+            <option value="consultoria">Consultoria e Assessoria</option>
+            <option value="imobiliario">Mercado Imobiliário</option>
+            <option value="turismo">Turismo e Hotelaria</option>
+            <option value="moda">Moda e Vestuário</option>
+            <option value="beleza">Beleza e Estética</option>
+            <option value="pet">Pet e Veterinária</option>
+            <option value="automotivo">Serviços Automotivos</option>
+          </select>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="showTab('cnae')">
             Próximo: CNAEs →
           </button>
-</div>
-</div>
-<!-- Tab 2: CNAEs -->
-<div class="tab-content" id="cnae">
-<h2>Classificação Nacional de Atividades Econômicas</h2>
-<div class="alert alert-info">
-<strong>ℹ️ Importante:</strong> O CNAE define as atividades que sua
+        </div>
+      </div>
+
+      <!-- Tab 2: CNAEs -->
+      <div id="cnae" class="tab-content">
+        <h2>Classificação Nacional de Atividades Econômicas</h2>
+
+        <div class="alert alert-info">
+          <strong>ℹ️ Importante:</strong> O CNAE define as atividades que sua
           empresa pode exercer.
         </div>
-<div class="form-group">
-<label for="buscaCnaePrincipal">CNAE Principal *</label>
-<div class="cnae-search-container">
-<input class="form-control" id="buscaCnaePrincipal" onkeyup="buscarCNAE('principal')" placeholder="Digite palavras-chave (ex: restaurante, consultoria, loja)" type="text"/>
-<div class="cnae-suggestions" id="sugestoesPrincipal"></div>
-</div>
-<div id="cnaePrincipalSelecionado"></div>
-</div>
-<h3>CNAEs Secundários (opcional)</h3>
-<div class="form-group">
-<label for="buscaCnaePrincipal">CNAE Principal *</label>
-<input class="form-control" id="buscaCnaePrincipal" placeholder="Digite o CNAE principal" type="text"/>
-</div>
-<div id="cnaes-secundarios">
-<div class="form-group">
-<label>CNAE Secundário</label>
-<input class="form-control" name="cnae-secundario[]" placeholder="Digite um CNAE secundário" type="text"/>
-</div>
-</div>
-<button class="btn btn-secondary" onclick="adicionarCNAE()" type="button">+ Adicionar CNAE Secundário</button>
-<script>
-function adicionarCNAE() {
-  const container = document.getElementById('cnaes-secundarios');
-  const div = document.createElement('div');
-  div.className = 'form-group';
-  div.innerHTML = '<label>CNAE Secundário</label><input type="text" name="cnae-secundario[]" class="form-control" placeholder="Digite um CNAE secundário">';
-  container.appendChild(div);
-}
-</script>
-<div class="btn-group">
-<button class="btn btn-secondary" onclick="showTab('empresa')">
+
+        <div class="form-group">
+          <label for="buscaCnaePrincipal">CNAE Principal *</label>
+          <div class="cnae-search-container">
+            <input
+              type="text"
+              id="buscaCnaePrincipal"
+              class="form-control"
+              placeholder="Digite palavras-chave (ex: restaurante, consultoria, loja)"
+              onkeyup="buscarCNAE('principal')"
+            />
+            <div id="sugestoesPrincipal" class="cnae-suggestions"></div>
+          </div>
+          <div id="cnaePrincipalSelecionado"></div>
+        </div>
+
+        <h3>CNAEs Secundários (opcional)</h3>
+        <button class="btn btn-secondary" onclick="adicionarCNAESecundario()">
+          + Adicionar CNAE Secundário
+        </button>
+        <div id="cnaesSecundarios"></div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="showTab('empresa')">
             ← Voltar
           </button>
-<button class="btn btn-primary" onclick="showTab('funcionarios')">
+          <button class="btn btn-primary" onclick="showTab('funcionarios')">
             Próximo: Funcionários →
           </button>
-</div>
-</div>
-<!-- Tab 3: Funcionários -->
-<div class="tab-content" id="funcionarios">
-<h2>Quadro de Funcionários</h2>
-<div class="alert alert-info">
+        </div>
+      </div>
+
+      <!-- Tab 3: Funcionários -->
+      <div id="funcionarios" class="tab-content">
+        <h2>Quadro de Funcionários</h2>
+
+        <div class="alert alert-info">
           O sistema calcula automaticamente todos os encargos trabalhistas.
         </div>
-<div class="form-group">
-<label for="qtdFuncionarios">Quantos funcionários você pretende contratar?</label>
-<input class="form-control" id="qtdFuncionarios" min="0" onchange="gerarCamposFuncionarios()" type="number" value="0"/>
-</div>
-<div id="listaFuncionarios"></div>
-<div class="btn-group">
-<button class="btn btn-secondary" onclick="showTab('cnae')">
+
+        <div class="form-group">
+          <label for="qtdFuncionarios"
+            >Quantos funcionários você pretende contratar?</label
+          >
+          <input
+            type="number"
+            id="qtdFuncionarios"
+            class="form-control"
+            value="0"
+            min="0"
+            onchange="gerarCamposFuncionarios()"
+          />
+        </div>
+
+        <div id="listaFuncionarios"></div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="showTab('cnae')">
             ← Voltar
           </button>
-<button class="btn btn-primary" onclick="showTab('custos')">
+          <button class="btn btn-primary" onclick="showTab('custos')">
             Próximo: Custos →
           </button>
-</div>
-</div>
-<!-- Tab 4: Custos -->
-<div class="tab-content" id="custos">
-<h2>Custos de Abertura e Operacionais</h2>
-<div class="result-card">
-<h3>📄 Custos de Abertura</h3>
-<div class="result-item">
-<span class="result-label">Registro na Junta Comercial:</span>
-<span class="result-value" id="custoJunta">R$ 0,00</span>
-</div>
-<div class="result-item">
-<span class="result-label">Alvará de Funcionamento:</span>
-<span class="result-value" id="custoAlvara">R$ 0,00</span>
-</div>
-<div class="result-item">
-<span class="result-label">Certificado Digital:</span>
-<span class="result-value" id="custoCertificado">R$ 0,00</span>
-</div>
-<div class="result-item">
-<span class="result-label">Honorários Contador (abertura):</span>
-<span class="result-value" id="custoContador">R$ 0,00</span>
-</div>
-<div class="result-item">
-<span class="result-label"><strong>Total Abertura:</strong></span>
-<span class="result-value"><strong id="totalAbertura">R$ 0,00</strong></span>
-</div>
-</div>
-<div class="result-card">
-<h3>💼 Custos Operacionais Mensais</h3>
-<div class="result-item">
-<span class="result-label">Folha de Pagamento:</span>
-<span class="result-value" id="custoFolha">R$ 0,00</span>
-</div>
-<div class="result-item">
-<span class="result-label">Aluguel:</span>
-<span class="result-value" id="custoAluguel">R$ 0,00</span>
-</div>
-<div class="result-item">
-<span class="result-label">Energia/Água/Internet:</span>
-<span class="result-value" id="custoUtilidades">R$ 0,00</span>
-</div>
-<div class="result-item">
-<span class="result-label">Contador (mensal):</span>
-<span class="result-value" id="custoContadorMensal">R$ 0,00</span>
-</div>
-<div class="result-item">
-<span class="result-label"><strong>Total Mensal:</strong></span>
-<span class="result-value"><strong id="totalMensal">R$ 0,00</strong></span>
-</div>
-</div>
-<div class="btn-group">
-<button class="btn btn-secondary" onclick="showTab('funcionarios')">
+        </div>
+      </div>
+
+      <!-- Tab 4: Custos -->
+      <div id="custos" class="tab-content">
+        <h2>Custos de Abertura e Operacionais</h2>
+
+        <div class="result-card">
+          <h3>📄 Custos de Abertura</h3>
+          <div class="result-item">
+            <span class="result-label">Registro na Junta Comercial:</span>
+            <span class="result-value" id="custoJunta">R$ 0,00</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Alvará de Funcionamento:</span>
+            <span class="result-value" id="custoAlvara">R$ 0,00</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Certificado Digital:</span>
+            <span class="result-value" id="custoCertificado">R$ 0,00</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Honorários Contador (abertura):</span>
+            <span class="result-value" id="custoContador">R$ 0,00</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label"><strong>Total Abertura:</strong></span>
+            <span class="result-value"
+              ><strong id="totalAbertura">R$ 0,00</strong></span
+            >
+          </div>
+        </div>
+
+        <div class="result-card">
+          <h3>💼 Custos Operacionais Mensais</h3>
+          <div class="result-item">
+            <span class="result-label">Folha de Pagamento:</span>
+            <span class="result-value" id="custoFolha">R$ 0,00</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Aluguel:</span>
+            <span class="result-value" id="custoAluguel">R$ 0,00</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Energia/Água/Internet:</span>
+            <span class="result-value" id="custoUtilidades">R$ 0,00</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Contador (mensal):</span>
+            <span class="result-value" id="custoContadorMensal">R$ 0,00</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label"><strong>Total Mensal:</strong></span>
+            <span class="result-value"
+              ><strong id="totalMensal">R$ 0,00</strong></span
+            >
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="showTab('funcionarios')">
             ← Voltar
           </button>
-<button class="btn btn-primary" onclick="calcularResultados()">
+          <button class="btn btn-primary" onclick="calcularResultados()">
             Calcular Resultado →
           </button>
-</div>
-</div>
-<!-- Tab 5: Resultado -->
-<div class="tab-content" id="resultado">
-<h2>Análise Completa do Investimento</h2>
-<div id="analiseViabilidade"></div>
-<div class="result-total">
-<h3>💵 Investimento Total Necessário</h3>
-<div class="value" id="investimentoTotal">R$ 0,00</div>
-<p id="statusCapital"></p>
-</div>
-<div class="chart-container">
-<canvas id="chartCustos"></canvas>
-</div>
-<div class="chart-container">
-<canvas id="chartProjecao"></canvas>
-</div>
-<div class="btn-group">
-<button class="btn btn-secondary" onclick="showTab('custos')">
+        </div>
+      </div>
+
+      <!-- Tab 5: Resultado -->
+      <div id="resultado" class="tab-content">
+        <h2>Análise Completa do Investimento</h2>
+
+        <div id="analiseViabilidade"></div>
+
+        <div class="result-total">
+          <h3>💵 Investimento Total Necessário</h3>
+          <div class="value" id="investimentoTotal">R$ 0,00</div>
+          <p id="statusCapital"></p>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="chartCustos"></canvas>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="chartProjecao"></canvas>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="showTab('custos')">
             ← Voltar
           </button>
-<button class="btn btn-primary" onclick="showTab('relatorio')">
+          <button class="btn btn-primary" onclick="showTab('relatorio')">
             Gerar Relatório →
           </button>
-</div>
-</div>
-<!-- Tab 6: Relatório -->
-<div class="tab-content" id="relatorio">
-<h2>Relatório Final e Envio por Email</h2>
-<div class="form-group">
-<label for="emailRelatorio">Email para envio do relatório:</label>
-<input class="form-control" id="emailRelatorio" placeholder="Digite seu email" type="email"/>
-</div>
-<button class="btn btn-success" onclick="enviarRelatorio()">
+        </div>
+      </div>
+
+      <!-- Tab 6: Relatório -->
+      <div id="relatorio" class="tab-content">
+        <h2>Relatório Final e Envio por Email</h2>
+
+        <div class="form-group">
+          <label for="emailRelatorio">Email para envio do relatório:</label>
+          <input
+            type="email"
+            id="emailRelatorio"
+            class="form-control"
+            placeholder="Digite seu email"
+          />
+        </div>
+
+        <button class="btn btn-success" onclick="enviarRelatorio()">
           📧 Enviar Relatório por Email
         </button>
-<div id="statusEnvio"></div>
-<div class="result-card" style="margin-top: 20px">
-<h3>📋 Resumo do Planejamento</h3>
-<div id="resumoCompleto"></div>
-</div>
-<button class="btn btn-primary" onclick="window.print()">
+
+        <div id="statusEnvio"></div>
+
+        <div class="result-card" style="margin-top: 20px">
+          <h3>📋 Resumo do Planejamento</h3>
+          <div id="resumoCompleto"></div>
+        </div>
+
+        <button class="btn btn-primary" onclick="window.print()">
           🖨️ Imprimir Relatório
         </button>
-</div>
-</div>
-<script>
+      </div>
+    </div>
+
+    <script>
       // Inicialização do EmailJS
-      emailjs.init('EnkBeiIKu-X8maD-Y'); // Substitua com sua chave pública do EmailJS
+      emailjs.init('YOUR_PUBLIC_KEY'); // Substitua com sua chave pública do EmailJS
 
       // Estado da aplicação
       let estado = {
@@ -2327,7 +2418,7 @@ function adicionarCNAE() {
         for (let i = 0; i < qtd; i++) {
           estado.funcionarios.push({
             cargo: '',
-            salario: 1.518,
+            salario: 1412,
             tipo: 'clt',
           });
         }
@@ -2341,98 +2432,98 @@ function adicionarCNAE() {
         const custosPorCidade = {
           sp: {
             junta: 800,
-            alvara: 1.500,
+            alvara: 1500,
             certificado: 450,
-            contador: 2.000,
-            aluguel: 3.500,
+            contador: 2000,
+            aluguel: 3500,
             utilidades: 800,
           },
           rj: {
             junta: 750,
-            alvara: 1.400,
+            alvara: 1400,
             certificado: 450,
-            contador: 1.800,
-            aluguel: 3.000,
+            contador: 1800,
+            aluguel: 3000,
             utilidades: 750,
           },
           mg: {
             junta: 600,
-            alvara: 1.000,
+            alvara: 1000,
             certificado: 400,
-            contador: 1.500,
-            aluguel: 2.000,
+            contador: 1500,
+            aluguel: 2000,
             utilidades: 600,
           },
           df: {
             junta: 700,
-            alvara: 1.200,
+            alvara: 1200,
             certificado: 450,
-            contador: 1.700,
-            aluguel: 2.800,
+            contador: 1700,
+            aluguel: 2800,
             utilidades: 700,
           },
           pr: {
             junta: 550,
             alvara: 900,
             certificado: 400,
-            contador: 1.400,
-            aluguel: 1.800,
+            contador: 1400,
+            aluguel: 1800,
             utilidades: 550,
           },
           rs: {
             junta: 600,
             alvara: 950,
             certificado: 400,
-            contador: 1.450,
-            aluguel: 1.900,
+            contador: 1450,
+            aluguel: 1900,
             utilidades: 580,
           },
           ba: {
             junta: 500,
             alvara: 800,
             certificado: 350,
-            contador: 1.200,
-            aluguel: 1.500,
+            contador: 1200,
+            aluguel: 1500,
             utilidades: 500,
           },
           ce: {
             junta: 450,
             alvara: 750,
             certificado: 350,
-            contador: 1.100,
-            aluguel: 1.400,
+            contador: 1100,
+            aluguel: 1400,
             utilidades: 480,
           },
           pe: {
             junta: 480,
             alvara: 780,
             certificado: 350,
-            contador: 1.150,
-            aluguel: 1.450,
+            contador: 1150,
+            aluguel: 1450,
             utilidades: 490,
           },
           am: {
             junta: 520,
             alvara: 850,
             certificado: 380,
-            contador: 1.300,
-            aluguel: 1.600,
+            contador: 1300,
+            aluguel: 1600,
             utilidades: 520,
           },
           go: {
             junta: 460,
             alvara: 720,
             certificado: 350,
-            contador: 1.050,
-            aluguel: 1.350,
+            contador: 1050,
+            aluguel: 1350,
             utilidades: 470,
           },
           sc: {
             junta: 580,
             alvara: 920,
             certificado: 400,
-            contador: 1.380,
-            aluguel: 1.750,
+            contador: 1380,
+            aluguel: 1750,
             utilidades: 560,
           },
         };
@@ -2441,8 +2532,8 @@ function adicionarCNAE() {
           junta: 500,
           alvara: 800,
           certificado: 400,
-          contador: 1.200,
-          aluguel: 1.500,
+          contador: 1200,
+          aluguel: 1500,
           utilidades: 500,
         };
 
@@ -2777,7 +2868,7 @@ function adicionarCNAE() {
             document.getElementById('nomeEmpresa').value || 'Empresa',
           resumo: document
             .getElementById('resumoCompleto')
-            .innerHTML.replace(/<[^>]*>/g, ' template_ib4ousd'),
+            .innerHTML.replace(/<[^>]*>/g, ' '),
         };
 
         // Mostrar loading
@@ -2795,7 +2886,7 @@ function adicionarCNAE() {
 
         // Para usar EmailJS de verdade:
         emailjs
-          .send('EnkBeiIKu-X8maD-Y','template_ib4ousd', templateParams)
+          .send('service_poab97r', 'template_ib4ousd', templateParams)
           .then(
             function (response) {
               document.getElementById('statusEnvio').innerHTML = `
@@ -2839,35 +2930,5 @@ function adicionarCNAE() {
         }
       });
     </script>
-<section id="relatorio-mao-de-obra"><h2>Relatório de Custos com Mão de Obra</h2><p>Considerando o salário mínimo atualizado de R$1518, os custos com mão de obra incluem:</p><ul><li>Salário Base: R$1518.00</li><li>INSS (8%): R$121.44</li><li>FGTS (8%): R$121.44</li><li>13º Salário (1/12 avos): R$126.50</li><li>Férias + 1/3 Constitucional: R$168.25</li></ul></section>
-<section id="analise-investimento">
-<h2>Análise Profissional de Investimento</h2>
-<p>Para a abertura e manutenção do negócio, é essencial considerar os seguintes aspectos financeiros:</p>
-<ul>
-<li><strong>Capital Inicial:</strong> R$ 10.000,00 - Inclui custos com legalização, aquisição de equipamentos, mobiliário e capital de giro.</li>
-<li><strong>Custos Fixos Mensais:</strong>
-<ul>
-<li>Aluguel: R$ 1.200,00</li>
-<li>Energia Elétrica e Água: R$ 300,00</li>
-<li>Internet e Telefonia: R$ 150,00</li>
-<li>Contador: R$ 250,00</li>
-</ul>
-</li>
-<li><strong>Custos com Mão de Obra:</strong>
-<ul>
-<li>Salário Base: R$ 1.518,00</li>
-<li>INSS (8%): R$ 121,44</li>
-<li>FGTS (8%): R$ 121,44</li>
-<li>13º Salário (1/12): R$ 126,50</li>
-<li>Férias + 1/3: R$ 168,67</li>
-<li><strong>Total Encargos:</strong> R$ 2.055,05</li>
-</ul>
-</li>
-<li><strong>Custos Variáveis:</strong> Matéria-prima, transporte, comissões, entre outros, estimados em R$ 800,00/mês.</li>
-<li><strong>Ponto de Equilíbrio:</strong> R$ 4.755,05 - Valor mínimo mensal necessário para cobrir todos os custos.</li>
-<li><strong>Retorno sobre o Investimento (ROI):</strong> Estimado em 6 a 12 meses, dependendo da demanda e gestão financeira.</li>
-</ul>
-<p><strong>Observações:</strong> É recomendável manter uma reserva de emergência equivalente a 3 meses de despesas fixas. Além disso, a formalização como MEI ou ME pode impactar positivamente na credibilidade e acesso a crédito.</p>
-</section>
-</body>
+  </body>
 </html>
